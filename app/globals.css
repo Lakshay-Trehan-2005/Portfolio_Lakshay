@@ -1,0 +1,390 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Add hardware acceleration for all animations */
+  .animate-float,
+  .animate-bounce,
+  .animate-glitch-1,
+  .animate-glitch-2,
+  .typing-effect,
+  .will-change-transform {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+}
+
+/* Custom Cybersecurity Cursor Styles */
+* {
+  cursor: none !important;
+}
+
+body {
+  cursor: none !important;
+}
+
+/* Custom cursor container */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: transform 0.1s ease-out;
+}
+
+/* Main cursor dot */
+.cursor-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: #00ffff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+  animation: pulse-cursor 2s infinite;
+}
+
+/* Cursor ring */
+.cursor-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #00ffff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+/* Cursor trail effect */
+.cursor-trail {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  background: #00ffff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.7;
+  animation: fade-trail 0.5s ease-out forwards;
+}
+
+/* Hover state for interactive elements */
+.custom-cursor.hover .cursor-ring {
+  width: 40px;
+  height: 40px;
+  border-color: #ff00ff;
+  opacity: 0.8;
+}
+
+.custom-cursor.hover .cursor-dot {
+  background: #ff00ff;
+  box-shadow: 0 0 15px #ff00ff, 0 0 25px #ff00ff, 0 0 35px #ff00ff;
+}
+
+/* Click state */
+.custom-cursor.click .cursor-ring {
+  width: 30px;
+  height: 30px;
+  border-color: #ffff00;
+  opacity: 1;
+}
+
+.custom-cursor.click .cursor-dot {
+  background: #ffff00;
+  box-shadow: 0 0 20px #ffff00, 0 0 30px #ffff00, 0 0 40px #ffff00;
+}
+
+/* Text selection cursor */
+.custom-cursor.text .cursor-ring {
+  width: 2px;
+  height: 20px;
+  border-radius: 1px;
+  border-color: #00ff00;
+}
+
+.custom-cursor.text .cursor-dot {
+  display: none;
+}
+
+/* Loading cursor */
+.custom-cursor.loading .cursor-ring {
+  animation: spin-cursor 1s linear infinite;
+  border-style: dashed;
+}
+
+/* Pulse animation for cursor dot */
+@keyframes pulse-cursor {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+/* Spin animation for loading state */
+@keyframes spin-cursor {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Trail fade animation */
+@keyframes fade-trail {
+  from {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+/* Hide cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .custom-cursor,
+  .cursor-trail {
+    display: none !important;
+  }
+
+  * {
+    cursor: auto !important;
+  }
+
+  body {
+    cursor: auto !important;
+  }
+}
+
+/* Custom animation for the header underline */
+@keyframes slideIn {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Glitch effect animations - simplified */
+@keyframes glitch-1 {
+  0%,
+  100% {
+    clip-path: inset(40% 0 61% 0);
+    transform: translate(-2px, 2px);
+  }
+  50% {
+    clip-path: inset(25% 0 58% 0);
+    transform: translate(3px, 1px);
+  }
+}
+
+@keyframes glitch-2 {
+  0%,
+  100% {
+    clip-path: inset(25% 0 58% 0);
+    transform: translate(3px, -4px);
+  }
+  50% {
+    clip-path: inset(58% 0 43% 0);
+    transform: translate(1px, -1px);
+  }
+}
+
+.clip-path-glitch-1 {
+  clip-path: inset(40% 0 61% 0);
+}
+
+.clip-path-glitch-2 {
+  clip-path: inset(20% 0 61% 0);
+}
+
+.animate-glitch-1 {
+  animation: glitch-1 0.3s infinite linear alternate-reverse;
+}
+
+.animate-glitch-2 {
+  animation: glitch-2 0.4s infinite linear alternate-reverse;
+}
+
+/* Floating animation for security elements - simplified */
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) rotate(20deg);
+    opacity: 0;
+  }
+}
+
+.animate-float {
+  animation: float 7s ease-in-out forwards;
+}
+
+/* Typing effect animation - simplified */
+.typing-effect {
+  border-right: 2px solid transparent;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: rgba(0, 255, 255, 0.7);
+  }
+}
+
+/* Scroll reveal animation - simplified */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Smooth scrolling with improved performance */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Line clamp utility for text truncation */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Add this to improve performance */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-float,
+  .animate-bounce,
+  .animate-glitch-1,
+  .animate-glitch-2,
+  .typing-effect,
+  .animate-fadeInUp {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .custom-cursor,
+  .cursor-trail {
+    display: none !important;
+  }
+
+  * {
+    cursor: auto !important;
+  }
+}
