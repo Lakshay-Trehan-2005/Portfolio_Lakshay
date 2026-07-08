@@ -1,30 +1,87 @@
-# Cybersecurity portfolio
+# Lakshay Trehan
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
+Cybersecurity Analyst | Ethical Hacker | Security Automation Enthusiast
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/kks-projects-f942990e/v0-cybersecurity-portfolio-mq)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/eXS50PWNxsX)
+Welcome to my portfolio repository. I am Lakshay Trehan, a cybersecurity-focused developer and analyst passionate about building secure systems, understanding digital threats, and turning complex security concepts into practical solutions.
 
-## Overview
+## About Me
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+I specialize in cybersecurity analysis, ethical hacking, threat awareness, and security automation. My work combines technical depth with clear communication, helping organizations improve security posture while making complex topics easier to understand.
 
-## Deployment
+I am particularly interested in:
+- Cybersecurity analysis and risk awareness
+- Ethical hacking and vulnerability exploration
+- Secure application development
+- Automation and workflow optimization
+- Technical communication and security education
 
-Your project is live at:
+## What I Do
 
-**[https://vercel.com/kks-projects-f942990e/v0-cybersecurity-portfolio-mq](https://vercel.com/kks-projects-f942990e/v0-cybersecurity-portfolio-mq)**
+I work on projects that explore security testing, encryption, automation, and practical cybersecurity tools. My portfolio reflects both technical experimentation and professional growth in the field of cybersecurity.
 
-## Build your app
+## Featured Projects
 
-Continue building your app on:
+- Autonomous Vehicle Security & Engineering Concepts
+- CipherEase - Encryption-focused web application project
+- PixelCrypt - Image encryption tool
+- Password Security Analysis Tool
+- Ethical Sniffing and Network Analysis Projects
+- Keylogger Awareness / Security Demonstration Project
 
-**[https://v0.dev/chat/projects/eXS50PWNxsX](https://v0.dev/chat/projects/eXS50PWNxsX)**
+## Skills
 
-## How It Works
+### Technical Skills
+- Cybersecurity analysis
+- Network and web security
+- Ethical hacking methodologies
+- Python, JavaScript, Java, and web development
+- Secure coding practices
+- Automation tools and workflows
 
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+### Tools & Platforms
+- GitHub
+- VS Code
+- n8n
+- AI-assisted workflows
+- Linux / Windows environments
+- Security research and documentation
+
+## Experience Highlights
+
+I have worked on cybersecurity-related internships, academic projects, and professional collaborations that strengthened my understanding of security best practices, compliance awareness, and practical implementation.
+
+## Certifications & Learning
+
+I continue to expand my professional knowledge through certifications and hands-on practice in cybersecurity, secure development, and modern digital defense strategies.
+
+## Contact
+
+- Email: lakshaytrehan44@gmail.com
+- LinkedIn: linkedin.com/in/lakshaytrehan
+- GitHub: github.com/Lakshay-Trehan2
+- Website: lakshaytrehan.com
+
+## Project Details
+
+This repository contains the source code for my personal portfolio website, built with Next.js and modern UI components. It showcases my background, projects, skills, and contact information in a visually engaging experience.
+
+## Run Locally
+
+1. Install dependencies
+   ```bash
+   pnpm install
+   ```
+
+2. Start the development server
+   ```bash
+   pnpm dev
+   ```
+
+3. Open your browser at
+   ```text
+   http://localhost:3000
+   ```
+
+## License
+
+This project is for personal portfolio purposes.
