@@ -1,6 +1,6 @@
 # Lakshay Trehan
 
-Cybersecurity Analyst | Ethical Hacker | Security Automation Enthusiast
+Cybersecurity Analyst | Security Automation Enthusiast
 
 Welcome to my portfolio repository. I am Lakshay Trehan, a cybersecurity-focused developer and analyst passionate about building secure systems, understanding digital threats, and turning complex security concepts into practical solutions.
 
