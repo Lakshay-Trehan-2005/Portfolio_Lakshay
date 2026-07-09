@@ -124,7 +124,7 @@ export default function RootLayout({
         <link rel="alternate" hrefLang="x-default" href="https://lakshaytrehan.com" />
 
         {/* Social media profiles */}
-        <link rel="me" href="https://github.com/Lakshay-Trehan2" />
+        <link rel="me" href="https://github.com/Lakshay-Trehan-2005" />
         <link rel="me" href="https://www.linkedin.com/in/lakshaytrehan/" />
 
         {/* Canonical URL */}
@@ -161,7 +161,7 @@ export default function RootLayout({
               },
               "sameAs": [
                 "https://www.linkedin.com/in/lakshaytrehan/",
-                "https://github.com/Lakshay-Trehan2"
+                "https://github.com/Lakshay-Trehan-2005"
               ],
               "jobTitle": "Cybersecurity Analyst",
               "worksFor": {
@@ -267,7 +267,7 @@ export default function RootLayout({
               },
               "sameAs": [
                 "https://www.linkedin.com/in/lakshaytrehan/",
-                "https://github.com/Lakshay-Trehan2"
+                "https://github.com/Lakshay-Trehan-2005"
               ],
               "priceRange": "$$",
               "servesCuisine": ["Cybersecurity", "Penetration Testing", "Security Consulting"],

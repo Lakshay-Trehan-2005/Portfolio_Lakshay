@@ -25,16 +25,16 @@ import YouTubeBackground from "@/components/youtube-background"
 import { useLanguage } from "@/context/language-context"
 import { useLanguageShortcut } from "@/hooks/use-language-shortcut"
 import {
-    Calendar,
-    Clock,
-    ExternalLink,
-    FileSearch,
-    Github,
-    GraduationCap,
-    Linkedin,
-    Mail,
-    MapPin,
-    MessageSquare
+  Calendar,
+  Clock,
+  ExternalLink,
+  FileSearch,
+  Github,
+  GraduationCap,
+  Linkedin,
+  Mail,
+  MapPin,
+  MessageSquare
 } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
@@ -107,7 +107,7 @@ export default function Home() {
       title: t("projects.pixelcrypt.title"),
       description: t("projects.pixelcrypt.description"),
       technologies: ["Python", "Cryptography", "Image Processing"],
-      githubLink: "https://github.com/Lakshay-Trehan2/PRODIGY_CS_02",
+      githubLink: "https://github.com/Lakshay-Trehan-2005/PRODIGY_CS_02",
       demoLink:
         "https://www.linkedin.com/posts/lakshaytrehan_pixelcrypt-imageencryption-cybersecurity-activity-7283404952947847169-ltkU",
       image:
@@ -138,13 +138,20 @@ export default function Home() {
     { name: t("about.skill.automations"), level: t("about.skill.level.advanced"), percent: 91 },
   ]
 
-  const toolSkills = [
-    { name: t("about.tool.n8n"), level: t("about.tool.level.proficient"), percent: 90 },
-    { name: t("about.tool.claude"), level: t("about.tool.level.advanced"), percent: 88 },
-    { name: t("about.tool.antigravity"), level: t("about.tool.level.advanced"), percent: 85 },
-    { name: t("about.tool.devguard"), level: t("about.tool.level.advanced"), percent: 86 },
-    { name: t("about.tool.github"), level: t("about.tool.level.advanced"), percent: 87 },
-    { name: t("about.tool.vscode"), level: t("about.tool.level.expert"), percent: 95 },
+  // Categorized cyber-focused tools (compact, table-like structure)
+  const toolsByCategory = [
+    { category: "Observability", items: ["Grafana", "Prometheus"] },
+    { category: "Logging", items: ["ELK Stack"] },
+    { category: "SIEM & Analytics", items: ["Splunk"] },
+    { category: "BI & Data", items: ["Power BI"] },
+    { category: "Automation & Workflows", items: ["Power Automate", "n8n", "MCP Connections"] },
+    { category: "AI & LLMs", items: ["Claude", "OpenAI API"] },
+    { category: "Cloud & Infra", items: ["Azure", "AWS", "GCP", "Terraform"] },
+    { category: "Containers & Orchestration", items: ["Docker", "Kubernetes"] },
+    { category: "Security & Pentest", items: ["Burp Suite", "Metasploit", "Wireshark"] },
+    { category: "Secrets & Vaults", items: ["HashiCorp Vault"] },
+    { category: "Dev & CI", items: ["GitHub", "VS Code"] },
+    { category: "Creative space", items: ["Canva", "Figma", "Adobe"] },
   ]
 
   const feedbacks = [
@@ -185,8 +192,8 @@ export default function Home() {
     },
     {
       name: "Sukrat Kaushik",
-      role: "Cybersecurity Advisor & Technical Communication Partner",
-      company: "Independent",
+      role: "Principal Cloud Consultant",
+      company: "SAP",
       quote:
         "Lakshay has consistently delivered a high level of professionalism, blending cybersecurity expertise with sharp technical communication and smart automation. He is able to translate complex security challenges into clear, business-ready messaging while also driving efficiency through tools like n8n and AI-assisted workflows.\n\nHis work reflects strong adherence to compliance and security best practices, especially around ISO 27001 and GDPR, and he brings a thoughtful, proactive approach to every task. I strongly recommend Lakshay for roles that need both technical depth and polished communication in cybersecurity.",
     },
@@ -427,11 +434,18 @@ export default function Home() {
                     Focused stack
                   </div>
                 </div>
-                <div className="grid gap-3">
-                  {toolSkills.map((tool) => (
-                    <div key={tool.name} className="flex items-center justify-between rounded-3xl border border-white/10 bg-black/50 px-4 py-3">
-                      <span className="text-white font-medium">{tool.name}</span>
-                      <span className="text-xs text-gray-400 uppercase tracking-[0.18em]">{tool.level}</span>
+                <div className="grid gap-4 grid-cols-2 md:grid-cols-3">
+                  {toolsByCategory.map((cat) => (
+                    <div key={cat.category} className="rounded-xl border border-white/6 bg-black/40 p-3">
+                      <div className="text-sm font-semibold text-purple-300 mb-2">{cat.category}</div>
+                      <div className="flex flex-wrap gap-2">
+                        {cat.items.map((it) => (
+                          <span key={it} className="inline-flex items-center gap-2 bg-gradient-to-r from-slate-900/60 to-slate-800/40 px-3 py-1 rounded-full text-xs text-gray-200">
+                            <span className="h-1.5 w-1.5 rounded-full bg-cyan-300 block" />
+                            {it}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -899,13 +913,13 @@ export default function Home() {
                       <h3 className="text-lg font-semibold text-white mb-1">{t("contact.github.title")}</h3>
                       <p className="text-gray-400 mb-3">{t("contact.github.description")}</p>
                       <a
-                        href="https://github.com/Lakshay-Trehan2"
+                        href="https://github.com/Lakshay-Trehan-2005"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-green-400 hover:text-green-300 flex items-center group"
                         itemProp="url"
                       >
-                        github.com/Lakshay-Trehan2
+                        github.com/Lakshay-Trehan-2005
                         <ExternalLink className="w-4 h-4 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                       </a>
                     </div>
