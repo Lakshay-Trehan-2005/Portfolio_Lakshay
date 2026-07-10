@@ -389,18 +389,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-[420px_minmax(1fr,520px)] gap-10 items-start">
-            <div>
-              <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-4 shadow-[0_35px_90px_-50px_rgba(56,189,248,0.12)]">
-                <div className="relative overflow-hidden rounded-[1.6rem] bg-gradient-to-br from-black/60 to-slate-900/60 p-8 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-20 h-20 rounded-xl bg-white/6 flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl font-bold text-white/90">LT</span>
-                    </div>
-                    <p className="text-sm text-gray-400 max-w-xs mx-auto">Cybersecurity analyst — ISO 27001, GDPR, AI security and automation.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div className="hidden lg:block" />
 
             <div className="space-y-8">
               <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8">

@@ -69,12 +69,12 @@ This repository contains the source code for my personal portfolio website, buil
 
 1. Install dependencies
    ```bash
-   pnpm install
+   npm install
    ```
 
 2. Start the development server
    ```bash
-   pnpm dev
+   npm dev
    ```
 
 3. Open your browser at

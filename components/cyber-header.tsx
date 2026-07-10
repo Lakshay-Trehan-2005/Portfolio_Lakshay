@@ -1,11 +1,11 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { Menu, X, ChevronRight, Shield, FileDown } from "lucide-react"
-import { cn } from "@/lib/utils"
-import LanguageSwitcher from "./language-switcher"
 import { useLanguage } from "@/context/language-context"
+import { cn } from "@/lib/utils"
+import { ChevronRight, Menu, Shield, X } from "lucide-react"
+import Link from "next/link"
+import { useEffect, useState } from "react"
+import LanguageSwitcher from "./language-switcher"
 
 export default function CyberHeader() {
   const { t, language } = useLanguage()
@@ -13,14 +13,6 @@ export default function CyberHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("home")
 
-  // Add resume URLs for both languages
-  const resumeUrls = {
-    en: "https://drive.google.com/uc?export=download&id=1NJWMfX90cc7byGwoY_5M6ogRS5qWBUlB",
-    de: "https://drive.google.com/uc?export=download&id=1FNDXlsvK_Hh8C6BGdpLB-tcvz3413Ohp",
-  }
-
-  // Get the correct URL based on current language
-  const resumeUrl = resumeUrls[language]
 
   // Navigation items with translation keys
   const navItems = [
@@ -120,16 +112,7 @@ export default function CyberHeader() {
             {/* Language Switcher */}
             <LanguageSwitcher className="ml-2" />
 
-            {/* Add Resume Download Button */}
-            <a
-              href={resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-2 px-3 py-1.5 text-sm font-medium bg-gradient-to-r from-cyan-500 to-purple-500 text-white rounded-md flex items-center hover:opacity-90 transition-opacity"
-            >
-              <FileDown className="h-4 w-4 mr-1" />
-              {t("nav.resume")}
-            </a>
+            {/* resume button removed */}
           </nav>
 
           {/* Mobile Menu Button */}
@@ -185,16 +168,7 @@ export default function CyberHeader() {
               </Link>
             ))}
 
-            {/* Add Resume Download Button to Mobile Menu */}
-            <a
-              href={resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center py-3 px-4 rounded-md transition-colors text-gray-300 hover:bg-gray-800/30 hover:text-white mt-4"
-            >
-              <FileDown className="mr-2 h-4 w-4 text-cyan-400" />
-              {t("nav.resume")}
-            </a>
+            {/* mobile resume button removed */}
           </nav>
           <div className="mt-auto">
             <div className="pt-6 border-t border-gray-800">
