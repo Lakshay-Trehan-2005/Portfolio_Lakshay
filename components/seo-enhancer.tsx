@@ -13,14 +13,14 @@ export default function SEOEnhancer() {
       const currentPageData = {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        "@id": `https://lakshaytrehan.com${pathname}#webpage`,
-        url: `https://lakshaytrehan.com${pathname}`,
+        "@id": `https://lakshaytrehan.de${pathname}#webpage`,
+        url: `https://lakshaytrehan.de${pathname}`,
         name:
           pathname === "/"
             ? "Lakshay Trehan | Cybersecurity Expert & Ethical Hacker"
             : `${pathname.substring(1).charAt(0).toUpperCase() + pathname.substring(2)} | Lakshay Trehan`,
         isPartOf: {
-          "@id": "https://lakshaytrehan.com/#website",
+          "@id": "https://lakshaytrehan.de/#website",
         },
         primaryImageOfPage: {
           "@type": "ImageObject",
@@ -31,13 +31,13 @@ export default function SEOEnhancer() {
         description:
           "Professional portfolio of Lakshay Trehan, a specialized Cybersecurity Analyst and Ethical Hacker with expertise in threat analysis, security automation, and security solutions.",
         breadcrumb: {
-          "@id": "https://lakshaytrehan.com/#breadcrumb",
+          "@id": "https://lakshaytrehan.de/#breadcrumb",
         },
         inLanguage: "en-US",
         potentialAction: [
           {
             "@type": "ReadAction",
-            target: [`https://lakshaytrehan.com${pathname}`],
+            target: [`https://lakshaytrehan.de${pathname}`],
           },
         ],
       }
@@ -75,7 +75,7 @@ export default function SEOEnhancer() {
       // Add article:author meta
       const authorMeta = document.createElement("meta")
       authorMeta.setAttribute("property", "article:author")
-      authorMeta.setAttribute("content", "https://lakshaytrehan.com/#person")
+      authorMeta.setAttribute("content", "https://lakshaytrehan.de/#person")
       document.head.appendChild(authorMeta)
 
       return () => {
@@ -100,7 +100,7 @@ export default function SEOEnhancer() {
         author: {
           "@type": "Person",
           name: "Lakshay Trehan",
-          url: "https://lakshaytrehan.com/#person",
+          url: "https://lakshaytrehan.de/#person",
         },
         publisher: {
           "@type": "Person",

@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next"
+export const dynamic = "force-static"
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -6,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://lakshaytrehan.com/sitemap.xml",
+    sitemap: "https://lakshaytrehan.de/sitemap.xml",
   }
 }

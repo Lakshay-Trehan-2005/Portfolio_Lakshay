@@ -22,7 +22,7 @@ export const metadata = {
     "Lakshay Trehan is a specialized Cybersecurity Analyst and Ethical Hacker with expertise in threat analysis, security automation, and implementing robust security solutions for organizations worldwide.",
   keywords:
     "Lakshay Trehan, Cybersecurity Expert, Ethical Hacker, Security Analyst, Cyber Security Professional, Information Security Specialist, Network Security, Security Consultant, Vulnerability Assessment, ISO 27001, GDPR, AI Security",
-  authors: [{ name: "Lakshay Trehan", url: "https://lakshaytrehan.com" }],
+  authors: [{ name: "Lakshay Trehan", url: "https://lakshaytrehan.de" }],
   creator: "Lakshay Trehan",
   publisher: "Lakshay Trehan",
   formatDetection: {
@@ -30,7 +30,7 @@ export const metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://lakshaytrehan.com"),
+  metadataBase: new URL("https://lakshaytrehan.de"),
   alternates: {
     canonical: "/",
     languages: {
@@ -42,7 +42,7 @@ export const metadata = {
     title: "Lakshay Trehan | Senior Cybersecurity Analyst & Ethical Hacker",
     description:
       "Lakshay Trehan is a specialized Cybersecurity Analyst and Ethical Hacker with expertise in threat analysis, security automation, and implementing robust security solutions for organizations worldwide.",
-    url: "https://lakshaytrehan.com",
+    url: "https://lakshaytrehan.de",
     siteName: "Lakshay Trehan - Cybersecurity Portfolio",
     images: [
       {
@@ -119,16 +119,16 @@ export default function RootLayout({
         />
 
         {/* Alternate language versions */}
-        <link rel="alternate" hrefLang="en" href="https://lakshaytrehan.com/en-US" />
-        <link rel="alternate" hrefLang="de" href="https://lakshaytrehan.com/de-DE" />
-        <link rel="alternate" hrefLang="x-default" href="https://lakshaytrehan.com" />
+        <link rel="alternate" hrefLang="en" href="https://lakshaytrehan.de/en-US" />
+        <link rel="alternate" hrefLang="de" href="https://lakshaytrehan.de/de-DE" />
+        <link rel="alternate" hrefLang="x-default" href="https://lakshaytrehan.de" />
 
         {/* Social media profiles */}
         <link rel="me" href="https://github.com/Lakshay-Trehan-2005" />
         <link rel="me" href="https://www.linkedin.com/in/lakshaytrehan/" />
 
         {/* Canonical URL */}
-        <link rel="canonical" href="https://lakshaytrehan.com" />
+        <link rel="canonical" href="https://lakshaytrehan.de" />
       </head>
       <body className={`dark`}>
         <LanguageProvider>
@@ -148,11 +148,11 @@ export default function RootLayout({
             {
               "@context": "https://schema.org",
               "@type": "Person",
-              "@id": "https://lakshaytrehan.com/#person",
+              "@id": "https://lakshaytrehan.de/#person",
               "name": "Lakshay Trehan",
               "givenName": "Lakshay",
               "familyName": "Trehan",
-              "url": "https://lakshaytrehan.com",
+              "url": "https://lakshaytrehan.de",
               "image": {
                 "@type": "ImageObject",
                 "url": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-05-15%20at%2020.12.58_43350fef.jpg-MJXAigjR7oeroI7Yu6U8bUwLvS4qTA.jpeg",
@@ -216,17 +216,17 @@ export default function RootLayout({
             {
               "@context": "https://schema.org",
               "@type": "WebSite",
-              "@id": "https://lakshaytrehan.com/#website",
-              "url": "https://lakshaytrehan.com",
+              "@id": "https://lakshaytrehan.de/#website",
+              "url": "https://lakshaytrehan.de",
               "name": "Lakshay Trehan - Cybersecurity Portfolio",
               "description": "Professional portfolio of Lakshay Trehan, a specialized Cybersecurity Analyst and Ethical Hacker",
               "publisher": {
-                "@id": "https://lakshaytrehan.com/#person"
+                "@id": "https://lakshaytrehan.de/#person"
               },
               "inLanguage": ["en-US", "de-DE"],
               "potentialAction": {
                 "@type": "SearchAction",
-                "target": "https://lakshaytrehan.com/search?q={search_term_string}",
+                "target": "https://lakshaytrehan.de/search?q={search_term_string}",
                 "query-input": "required name=search_term_string"
               }
             }
@@ -239,10 +239,10 @@ export default function RootLayout({
             {
               "@context": "https://schema.org",
               "@type": "ProfessionalService",
-              "@id": "https://lakshaytrehan.com/#service",
+              "@id": "https://lakshaytrehan.de/#service",
               "name": "Lakshay Trehan Cybersecurity Services",
               "image": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-05-15%20at%2020.12.58_43350fef.jpg-MJXAigjR7oeroI7Yu6U8bUwLvS4qTA.jpeg",
-              "url": "https://lakshaytrehan.com",
+              "url": "https://lakshaytrehan.de",
               "telephone": "",
               "address": {
                 "@type": "PostalAddress",
@@ -272,7 +272,7 @@ export default function RootLayout({
               "priceRange": "$$",
               "servesCuisine": ["Cybersecurity", "Penetration Testing", "Security Consulting"],
               "founder": {
-                "@id": "https://lakshaytrehan.com/#person"
+                "@id": "https://lakshaytrehan.de/#person"
               }
             }
           `}
@@ -341,37 +341,37 @@ export default function RootLayout({
                   "@type": "ListItem",
                   "position": 1,
                   "name": "Home",
-                  "item": "https://lakshaytrehan.com"
+                  "item": "https://lakshaytrehan.de"
                 },
                 {
                   "@type": "ListItem",
                   "position": 2,
                   "name": "About",
-                  "item": "https://lakshaytrehan.com/#about"
+                  "item": "https://lakshaytrehan.de/#about"
                 },
                 {
                   "@type": "ListItem",
                   "position": 3,
                   "name": "Experience",
-                  "item": "https://lakshaytrehan.com/#experience"
+                  "item": "https://lakshaytrehan.de/#experience"
                 },
                 {
                   "@type": "ListItem",
                   "position": 4,
                   "name": "Projects",
-                  "item": "https://lakshaytrehan.com/#projects"
+                  "item": "https://lakshaytrehan.de/#projects"
                 },
                 {
                   "@type": "ListItem",
                   "position": 5,
                   "name": "Certifications",
-                  "item": "https://lakshaytrehan.com/#certifications"
+                  "item": "https://lakshaytrehan.de/#certifications"
                 },
                 {
                   "@type": "ListItem",
                   "position": 6,
                   "name": "Contact",
-                  "item": "https://lakshaytrehan.com/#contact"
+                  "item": "https://lakshaytrehan.de/#contact"
                 }
               ]
             }

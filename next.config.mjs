@@ -6,7 +6,7 @@ const nextConfig = {
     unoptimized: true,
   },
   // Disable static generation for error pages
-  output: 'standalone',
+  output: 'export',
   // Ignore build errors
   eslint: {
     ignoreDuringBuilds: true,

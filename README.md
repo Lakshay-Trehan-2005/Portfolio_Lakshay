@@ -59,7 +59,7 @@ I continue to expand my professional knowledge through certifications and hands-
 - Email: lakshaytrehan44@gmail.com
 - LinkedIn: linkedin.com/in/lakshaytrehan
 - GitHub: github.com/Lakshay-Trehan-2005
-- Website: lakshaytrehan.com
+- Website: lakshaytrehan.de
 
 ## Project Details
 

@@ -1,4 +1,4 @@
-# robots.txt for lakshaytrehan.com
+# robots.txt for lakshaytrehan.de
 
 # Allow all crawlers
 User-agent: *
@@ -10,11 +10,11 @@ Disallow: /_next/
 Disallow: /static/
 
 # Sitemap location
-Sitemap: https://lakshaytrehan.com/sitemap.xml
+Sitemap: https://lakshaytrehan.de/sitemap.xml
 
 # Crawl delay for better server performance
 Crawl-delay: 5
 
 # Additional sitemaps for different languages
-Sitemap: https://lakshaytrehan.com/sitemap-en.xml
-Sitemap: https://lakshaytrehan.com/sitemap-de.xml
+Sitemap: https://lakshaytrehan.de/sitemap-en.xml
+Sitemap: https://lakshaytrehan.de/sitemap-de.xml

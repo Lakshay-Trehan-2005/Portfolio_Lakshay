@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next"
+export const dynamic = "force-static"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://lakshaytrehan.com"
+  const baseUrl = "https://lakshaytrehan.de"
   const lastModified = new Date()
 
   // Define all sections of the site

@@ -143,21 +143,35 @@ export async function detectLanguage(): Promise<{
     }
   }
 
-  // 3. Try API-based detection
+  // 3. Try API-based detection (Client-side)
   try {
-    const response = await fetch("/api/geo-detect")
+    const response = await fetch("https://ipapi.co/json/")
     if (response.ok) {
       const data = await response.json()
-      if (data && data.language) {
+      if (data && data.country) {
+        const language = GERMAN_SPEAKING_COUNTRIES.includes(data.country) ? "de" : "en"
         return {
-          language: data.language,
+          language,
           country: data.country,
-          source: `api-${data.source}`,
+          source: "api-ipapi.co",
+        }
+      }
+    }
+
+    const fallbackResponse = await fetch("https://get.geojs.io/v1/ip/country.json")
+    if (fallbackResponse.ok) {
+      const fallbackData = await fallbackResponse.json()
+      if (fallbackData && fallbackData.country) {
+        const language = GERMAN_SPEAKING_COUNTRIES.includes(fallbackData.country) ? "de" : "en"
+        return {
+          language,
+          country: fallbackData.country,
+          source: "api-geojs.io",
         }
       }
     }
   } catch (error) {
-    console.error("Error calling geo-detection API:", error)
+    console.error("Error detecting geo-location on client:", error)
   }
 
   // 4. Fallback to browser language

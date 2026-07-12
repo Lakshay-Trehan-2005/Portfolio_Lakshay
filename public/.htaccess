@@ -45,8 +45,8 @@
 # Redirect non-www to www
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteCond %{HTTP_HOST} ^lakshaytrehan.com [NC]
-  RewriteRule ^(.*)$ https://www.lakshaytrehan.com/$1 [L,R=301]
+  RewriteCond %{HTTP_HOST} ^lakshaytrehan.de [NC]
+  RewriteRule ^(.*)$ https://www.lakshaytrehan.de/$1 [L,R=301]
 </IfModule>
 
 # Custom error pages
