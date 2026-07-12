@@ -294,7 +294,7 @@ export default function Home() {
             <div className="flex justify-center lg:justify-start">
               <InteractivePhoto
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-05-15%20at%2020.12.58_43350fef.jpg-MJXAigjR7oeroI7Yu6U8bUwLvS4qTA.jpeg"
-                alt="Lakshay Trehan - Cybersecurity Analyst and Ethical Hacker"
+                alt="Lakshay Trehan - Cybersecurity Analyst"
                 className="w-72 h-72 rounded-2xl object-cover object-center shadow-xl"
               />
             </div>
