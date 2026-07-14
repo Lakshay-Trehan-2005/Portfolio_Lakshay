@@ -129,6 +129,12 @@ export default function RootLayout({
 
         {/* Canonical URL */}
         <link rel="canonical" href="https://lakshaytrehan.de" />
+
+        <Script
+          src="https://cloud.umami.is/script.js"
+          data-website-id="14e8214b-3fd6-4c1d-aa06-cc966f3d6e49"
+          strategy="afterInteractive"
+        />
       </head>
       <body className={`dark`}>
         <LanguageProvider>
