@@ -1,6 +1,6 @@
 # Lakshay Trehan
 
-Cybersecurity Analyst | Security Automation Enthusiast
+Cybersecurity Analyst | Security Automation Enthusiast | AI & Automation | Agentic AI | Information Security 
 
 Welcome to my portfolio repository. I am Lakshay Trehan, a cybersecurity-focused developer and analyst passionate about building secure systems, understanding digital threats, and turning complex security concepts into practical solutions. My personal portfolio website is live at https://lakshaytrehan.de for your support and feedbacks:) 
 
