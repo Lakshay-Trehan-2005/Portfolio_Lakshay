@@ -156,13 +156,6 @@ export default function Home() {
 
   const feedbacks = [
     {
-      name: "Frédéric Noppe",
-      role: "Open Source Security & Cybersecurity Management",
-      company: "L3montree Cybersecurity GmbH",
-      quote:
-        "I would like to recommend Lakshay, who worked for us as a working student in the field of technical communication (including the technical integration of new services). During his time with us, he was responsible for technical communication and familiarised himself with the challenging field of modern, secure software development. This is an achievement I would particularly like to highlight, given the complexity of the subject area.\n\nFurthermore, he played a key role in optimising the process for creating infographics. He devised his own designs, which he continuously refined and which can now be seen on our public channels. He also represented my company competently and confidently at all times during public events.\n\nI was particularly impressed by his exceptionally proactive approach to work. He engages enthusiastically in substantive discussions and quickly familiarises himself with new technologies. His solution-oriented approach has noticeably enriched our collaboration. I can recommend him to any future employer!",
-    },
-    {
       name: "Adalbert Rizov",
       role: "Software Developer / Application Design Analyst",
       company: "TARGOBANK",
