@@ -24,17 +24,25 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import YouTubeBackground from "@/components/youtube-background"
 import { useLanguage } from "@/context/language-context"
 import { useLanguageShortcut } from "@/hooks/use-language-shortcut"
+import { cn } from "@/lib/utils"
 import {
+  ArrowRight,
   Calendar,
+  CheckCircle2,
   Clock,
+  Cpu,
+  Crosshair,
   ExternalLink,
   FileSearch,
   Github,
   GraduationCap,
   Linkedin,
+  Lock,
   Mail,
   MapPin,
-  MessageSquare
+  MessageSquare,
+  Shield,
+  Workflow
 } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
@@ -192,55 +200,101 @@ export default function Home() {
     },
   ]
 
-  // Reusable slider component used for Projects and Certifications
+  // Reusable responsive slider component used for Projects, Certifications, and Endorsements
   function Slider({
     items,
     renderItem,
     itemsPerView = 3,
   }: any) {
     const [index, setIndex] = useState(0)
+    const [effectiveItemsPerView, setEffectiveItemsPerView] = useState(itemsPerView)
+
+    useEffect(() => {
+      const updatePerView = () => {
+        if (typeof window !== "undefined") {
+          if (window.innerWidth < 640) {
+            setEffectiveItemsPerView(1)
+          } else if (window.innerWidth < 1024) {
+            setEffectiveItemsPerView(Math.min(2, itemsPerView))
+          } else {
+            setEffectiveItemsPerView(itemsPerView)
+          }
+        }
+      }
+      updatePerView()
+      window.addEventListener("resize", updatePerView)
+      return () => window.removeEventListener("resize", updatePerView)
+    }, [itemsPerView])
+
     const total = items.length
-    const maxIndex = Math.max(0, total - itemsPerView)
+    const maxIndex = Math.max(0, total - effectiveItemsPerView)
 
     const prev = () => setIndex((i: number) => Math.max(0, i - 1))
     const next = () => setIndex((i: number) => Math.min(maxIndex, i + 1))
 
-    const itemWidth = `${100 / itemsPerView}%`
+    const gap = 24
+    const itemWidth = `calc((100% - ${(effectiveItemsPerView - 1) * gap}px) / ${effectiveItemsPerView})`
 
     return (
-      <div className="relative">
-        <div className="overflow-hidden">
+      <div className="relative group/slider">
+        <div className="overflow-hidden py-3 px-1">
           <div
-            className="flex gap-6 transition-transform duration-500"
-            style={{ transform: `translateX(-${index * (100 / itemsPerView)}%)` }}
+            className="flex transition-transform duration-500 ease-out"
+            style={{
+              gap: `${gap}px`,
+              transform: `translateX(calc(-${index} * (${itemWidth} + ${gap}px)))`,
+            }}
           >
             {items.map((it: any, idx: number) => (
-              <div key={`${idx}-${idx}`} style={{ flex: `0 0 ${itemWidth}` }} className="px-0">
+              <div
+                key={`${idx}-${idx}`}
+                style={{ flex: `0 0 ${itemWidth}`, minWidth: 0 }}
+                className="h-full flex flex-col"
+              >
                 {renderItem(it, idx)}
               </div>
             ))}
           </div>
         </div>
 
-        <div className="absolute top-1/2 -translate-y-1/2 left-2">
+        {/* Prev Button */}
+        {index > 0 && (
           <button
             aria-label="Previous"
             onClick={prev}
-            className="rounded-full bg-black/60 border border-white/10 p-2 hover:bg-black/70"
+            className="absolute top-1/2 -translate-y-1/2 -left-3 md:-left-5 w-11 h-11 rounded-full bg-slate-950/90 border border-white/20 text-white flex items-center justify-center hover:bg-cyan-500/20 hover:border-cyan-400/50 hover:text-cyan-300 transition-all duration-300 shadow-2xl backdrop-blur-md z-20 text-xl font-bold"
           >
             ‹
           </button>
-        </div>
+        )}
 
-        <div className="absolute top-1/2 -translate-y-1/2 right-2">
+        {/* Next Button */}
+        {index < maxIndex && (
           <button
             aria-label="Next"
             onClick={next}
-            className="rounded-full bg-black/60 border border-white/10 p-2 hover:bg-black/70"
+            className="absolute top-1/2 -translate-y-1/2 -right-3 md:-right-5 w-11 h-11 rounded-full bg-slate-950/90 border border-white/20 text-white flex items-center justify-center hover:bg-cyan-500/20 hover:border-cyan-400/50 hover:text-cyan-300 transition-all duration-300 shadow-2xl backdrop-blur-md z-20 text-xl font-bold"
           >
             ›
           </button>
-        </div>
+        )}
+
+        {/* Dots Pagination */}
+        {maxIndex > 0 && (
+          <div className="flex justify-center items-center gap-2 mt-8">
+            {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+              <button
+                key={i}
+                aria-label={`Go to slide ${i + 1}`}
+                onClick={() => setIndex(i)}
+                className={cn(
+                  "h-2 rounded-full transition-all duration-300",
+                  index === i ? "w-8 bg-cyan-400 shadow-[0_0_12px_rgba(6,182,212,0.6)]" : "w-2 bg-white/20 hover:bg-white/40"
+                )}
+              />
+            ))}
+          </div>
+        )}
       </div>
     )
   }
@@ -283,130 +337,282 @@ export default function Home() {
         </div>
 
         <div className="container relative z-10 px-4 max-w-6xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div className="flex justify-center lg:justify-start">
-              <InteractivePhoto
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-05-15%20at%2020.12.58_43350fef.jpg-MJXAigjR7oeroI7Yu6U8bUwLvS4qTA.jpeg"
-                alt="Lakshay Trehan - Cybersecurity Analyst"
-                className="w-72 h-72 rounded-2xl object-cover object-center shadow-xl"
-              />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            {/* Left Column: Holographic Photo Showcase (5 cols) */}
+            <div className="lg:col-span-5 flex justify-center lg:justify-start">
+              <div className="relative group">
+                {/* Ambient Multidimensional Backlight */}
+                <div className="absolute -inset-4 bg-gradient-to-tr from-cyan-500/25 via-purple-600/20 to-blue-500/25 rounded-[2.5rem] filter blur-2xl opacity-75 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+
+                {/* Cyber HUD Frame Container */}
+                <div className="relative p-3 sm:p-3.5 rounded-[2.25rem] border border-white/15 bg-slate-950/70 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] transition-all duration-500 hover:border-cyan-500/40">
+                  <InteractivePhoto
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-05-15%20at%2020.12.58_43350fef.jpg-MJXAigjR7oeroI7Yu6U8bUwLvS4qTA.jpeg"
+                    alt="Lakshay Trehan - IT Security Consultant"
+                    className="w-64 h-64 sm:w-80 sm:h-80 lg:w-[330px] lg:h-[330px] rounded-2xl object-cover object-center shadow-2xl"
+                  />
+
+                  {/* Floating Status Badge: Available & Location */}
+                  <div className="absolute -top-3.5 -right-3 sm:-right-4 bg-slate-950/95 border border-emerald-500/40 px-3.5 py-1.5 rounded-full backdrop-blur-xl shadow-xl flex items-center gap-2">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    <span className="text-[11px] font-medium text-emerald-300 tracking-wide">Walldorf, Germany</span>
+                  </div>
+
+                  {/* Floating Role Badge: Consultant */}
+                  <div className="absolute -bottom-3.5 -left-3 sm:-left-4 bg-slate-950/95 border border-white/15 px-4 py-2 rounded-xl backdrop-blur-xl shadow-2xl flex items-center gap-2.5">
+                    <div className="p-1.5 rounded-lg bg-cyan-500/10 text-cyan-400">
+                      <Shield className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <p className="text-[9px] uppercase font-mono tracking-widest text-cyan-400/80 leading-none">Role</p>
+                      <p className="text-xs font-semibold text-white mt-0.5">IT Security Consultant</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className="text-left lg:text-left">
-              <div className="mb-2 inline-block px-4 py-1 bg-black/60 backdrop-blur-sm border border-cyan-500/30 rounded-full">
-                <p className="text-sm font-mono text-cyan-400">{t("hero.title")}</p>
+            {/* Right Column: Narrative, Typography & CTAs (7 cols) */}
+            <div className="lg:col-span-7 text-left">
+              {/* Identity Chip */}
+              <div className="mb-4 inline-flex items-center gap-2.5 px-3.5 py-1.5 bg-slate-950/80 backdrop-blur-md border border-cyan-500/30 rounded-full shadow-[0_0_20px_rgba(6,182,212,0.2)]">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                </span>
+                <p className="text-xs font-mono uppercase tracking-wider text-cyan-300">
+                  {t("hero.title")}
+                </p>
               </div>
 
-              <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight" itemProp="headline">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-cyan-400 to-white drop-shadow-2xl">
-                  Lakshay Trehan
+              {/* Grand Display Headline */}
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4 leading-[1.08]" itemProp="headline">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-white">
+                  Lakshay
+                </span>{" "}
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-teal-300 to-blue-500 drop-shadow-[0_0_35px_rgba(6,182,212,0.35)]">
+                  Trehan
                 </span>
               </h1>
 
               <meta itemProp="name" content="Lakshay Trehan" />
-              <meta itemProp="jobTitle" content="Cybersecurity Analyst" />
+              <meta itemProp="jobTitle" content="IT Security Consultant & Cybersecurity Analyst" />
               <meta
                 itemProp="description"
-                content="Experienced cybersecurity analyst specialising in threat analysis, security automation, ISO 27001, GDPR, and AI-driven security solutions."
+                content="Specializing in ISO 27001 & NIS2 governance, threat intelligence, and security automation."
               />
 
-              <p className="text-lg md:text-xl text-gray-200 mb-6 drop-shadow-lg" itemProp="description">
+              {/* Mission Statement Subtitle */}
+              <p className="text-base sm:text-lg text-gray-300 mb-6 drop-shadow-lg leading-relaxed max-w-xl" itemProp="description">
                 {t("hero.description")}
               </p>
 
-              <div className="flex flex-wrap gap-4">
+              {/* Strategic Domain Pills */}
+              <div className="flex flex-wrap gap-2 mb-8">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900/80 border border-white/10 text-xs text-gray-200 font-medium hover:border-cyan-500/40 hover:bg-slate-900 transition-all shadow-sm">
+                  <Shield className="w-3.5 h-3.5 text-cyan-400" />
+                  ISO 27001 & NIS2
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900/80 border border-white/10 text-xs text-gray-200 font-medium hover:border-purple-500/40 hover:bg-slate-900 transition-all shadow-sm">
+                  <Crosshair className="w-3.5 h-3.5 text-purple-400" />
+                  Threat Intelligence
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900/80 border border-white/10 text-xs text-gray-200 font-medium hover:border-emerald-500/40 hover:bg-slate-900 transition-all shadow-sm">
+                  <Workflow className="w-3.5 h-3.5 text-emerald-400" />
+                  Security Automation
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900/80 border border-white/10 text-xs text-gray-200 font-medium hover:border-blue-500/40 hover:bg-slate-900 transition-all shadow-sm">
+                  <Cpu className="w-3.5 h-3.5 text-blue-400" />
+                  Secured AI
+                </span>
+              </div>
+
+              {/* CTA Buttons & Social Connect */}
+              <div className="flex flex-wrap items-center gap-4">
                 <Button
                   size="lg"
-                  className="bg-cyan-600 hover:bg-cyan-700 text-white font-medium px-6 shadow-lg shadow-cyan-500/25"
+                  className="bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-600 hover:from-cyan-400 hover:via-teal-400 hover:to-blue-500 text-white font-semibold px-7 py-6 rounded-xl shadow-xl shadow-cyan-500/25 transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2 group"
                   onClick={() => {
                     document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
                   }}
                 >
-                  {t("hero.button.projects")}
+                  <span>{t("hero.button.projects")}</span>
+                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </Button>
+
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-gray-400 hover:bg-gray-800/80 text-gray-100 font-medium px-6 backdrop-blur-sm bg-transparent"
+                  className="border-white/20 hover:border-cyan-400/50 bg-slate-950/70 hover:bg-slate-900/90 text-gray-200 hover:text-white font-medium px-7 py-6 rounded-xl backdrop-blur-md transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2"
                   onClick={() => {
                     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
                   }}
                 >
-                  {t("hero.button.contact")}
+                  <Mail className="w-4 h-4 text-purple-400" />
+                  <span>{t("hero.button.contact")}</span>
                 </Button>
+
+                {/* Social Quick Connect */}
+                <div className="flex items-center gap-2 pl-2">
+                  <a
+                    href="https://www.linkedin.com/in/lakshaytrehan/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                    className="w-12 h-12 rounded-xl bg-slate-950/80 border border-white/10 hover:border-cyan-400/50 flex items-center justify-center text-cyan-400 hover:text-white hover:bg-cyan-500/20 transition-all duration-300 shadow-md hover:scale-105"
+                  >
+                    <Linkedin className="w-5 h-5" />
+                  </a>
+                  <a
+                    href="https://github.com/Lakshay-Trehan-2005"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub"
+                    className="w-12 h-12 rounded-xl bg-slate-950/80 border border-white/10 hover:border-green-400/50 flex items-center justify-center text-green-400 hover:text-white hover:bg-green-500/20 transition-all duration-300 shadow-md hover:scale-105"
+                  >
+                    <Github className="w-5 h-5" />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
-          <Link href="#about" className="text-cyan-400">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M12 5v14M5 12l7 7 7-7" />
-            </svg>
+        {/* Futuristic Mouse Scroll Indicator */}
+        <div className="absolute bottom-6 left-0 right-0 flex flex-col items-center justify-center pointer-events-auto z-20">
+          <Link href="#about" className="text-gray-400 hover:text-cyan-400 flex flex-col items-center transition-colors group">
+            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-gray-400 group-hover:text-cyan-300 mb-1.5 transition-colors">
+              Scroll to explore
+            </span>
+            <div className="w-5 h-8 rounded-full border border-white/20 flex justify-center p-1 group-hover:border-cyan-400/50 transition-colors bg-slate-950/40 backdrop-blur-sm">
+              <div className="w-1 h-2 rounded-full bg-cyan-400 animate-bounce"></div>
+            </div>
           </Link>
         </div>
       </section>
 
-      {/* About Section (simplified to fix JSX nesting) */}
+      {/* About Section */}
       <section
         id="about"
-        className="relative py-20 bg-gray-950 overflow-hidden"
+        className="relative py-24 bg-gradient-to-b from-black via-slate-950/70 to-black overflow-hidden"
         itemScope
         itemType="https://schema.org/AboutPage"
       >
-        <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-black to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-black to-transparent" />
-
         <div className="absolute inset-0 opacity-10">
           <HexScanner className="w-full h-full" />
         </div>
 
-        <div className="container px-4 mx-auto relative z-10">
+        <div className="container px-4 mx-auto max-w-6xl relative z-10">
           <SEOBreadcrumb />
 
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold">
+          <div className="text-center mb-16">
+            <span className="inline-block px-3 py-1 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-3">
+              Profile
+            </span>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white">
               {t("about.title")} <span className="text-cyan-400">{t("about.me")}</span>
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-[420px_minmax(1fr,520px)] gap-10 items-start">
-            <div className="hidden lg:block" />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+            {/* Left Column: Top Skills & Core Pillars */}
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8 backdrop-blur-xl flex flex-col justify-between shadow-xl space-y-6">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-semibold text-cyan-400">{t("about.topSkillsTitle")}</h3>
+                  <Badge className="bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 text-[10px] uppercase tracking-[0.2em] px-2.5 py-0.5">
+                    Core Profile
+                  </Badge>
+                </div>
+                <p className="text-gray-300 leading-relaxed mb-3 text-sm md:text-base">
+                  {t("about.description")}
+                </p>
+                <p className="text-gray-400 leading-relaxed text-xs md:text-sm">
+                  {t("about.extendedBio")}
+                </p>
+              </div>
 
-            <div className="space-y-8">
-              <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8">
-                <h3 className="text-xl font-semibold mb-4 text-cyan-400">{t("about.topSkillsTitle")}</h3>
-                <p className="text-gray-300 leading-8 mb-6">{t("about.description")}</p>
-                <div className="grid gap-4 sm:grid-cols-2">
+              {/* 4 Core Security Pillars */}
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-wider text-cyan-400/90 mb-3 flex items-center gap-2">
+                  <span>Specialized Domains</span>
+                  <div className="h-px flex-1 bg-white/10"></div>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <div className="rounded-xl border border-white/10 bg-slate-950/70 p-4 transition-all duration-300 hover:border-cyan-500/40 hover:bg-slate-950/90">
+                    <div className="flex items-center gap-2.5 mb-2">
+                      <div className="p-1.5 rounded-lg bg-cyan-500/10 text-cyan-400">
+                        <Shield className="w-4 h-4" />
+                      </div>
+                      <h4 className="text-xs sm:text-sm font-semibold text-white">{t("about.pillars.governance.title")}</h4>
+                    </div>
+                    <p className="text-[11px] sm:text-xs text-gray-400 leading-relaxed">{t("about.pillars.governance.desc")}</p>
+                  </div>
+
+                  <div className="rounded-xl border border-white/10 bg-slate-950/70 p-4 transition-all duration-300 hover:border-purple-500/40 hover:bg-slate-950/90">
+                    <div className="flex items-center gap-2.5 mb-2">
+                      <div className="p-1.5 rounded-lg bg-purple-500/10 text-purple-400">
+                        <Crosshair className="w-4 h-4" />
+                      </div>
+                      <h4 className="text-xs sm:text-sm font-semibold text-white">{t("about.pillars.threat.title")}</h4>
+                    </div>
+                    <p className="text-[11px] sm:text-xs text-gray-400 leading-relaxed">{t("about.pillars.threat.desc")}</p>
+                  </div>
+
+                  <div className="rounded-xl border border-white/10 bg-slate-950/70 p-4 transition-all duration-300 hover:border-emerald-500/40 hover:bg-slate-950/90">
+                    <div className="flex items-center gap-2.5 mb-2">
+                      <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400">
+                        <Workflow className="w-4 h-4" />
+                      </div>
+                      <h4 className="text-xs sm:text-sm font-semibold text-white">{t("about.pillars.automation.title")}</h4>
+                    </div>
+                    <p className="text-[11px] sm:text-xs text-gray-400 leading-relaxed">{t("about.pillars.automation.desc")}</p>
+                  </div>
+
+                  <div className="rounded-xl border border-white/10 bg-slate-950/70 p-4 transition-all duration-300 hover:border-blue-500/40 hover:bg-slate-950/90">
+                    <div className="flex items-center gap-2.5 mb-2">
+                      <div className="p-1.5 rounded-lg bg-blue-500/10 text-blue-400">
+                        <Cpu className="w-4 h-4" />
+                      </div>
+                      <h4 className="text-xs sm:text-sm font-semibold text-white">{t("about.pillars.ai.title")}</h4>
+                    </div>
+                    <p className="text-[11px] sm:text-xs text-gray-400 leading-relaxed">{t("about.pillars.ai.desc")}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Skill Proficiency Gauges */}
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3 flex items-center gap-2">
+                  <span>Proficiency Metrics</span>
+                  <div className="h-px flex-1 bg-white/10"></div>
+                </div>
+                <div className="grid gap-3 sm:grid-cols-2">
                   {topSkills.map((skill) => (
-                    <div key={skill.name} className="rounded-3xl border border-white/10 bg-slate-950/85 p-4">
-                      <div className="flex items-center justify-between gap-3 mb-3">
-                        <span className="text-sm font-semibold text-white">{skill.name}</span>
-                        <Badge className="bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 text-[10px] uppercase tracking-[0.24em]">
+                    <div key={skill.name} className="rounded-xl border border-white/10 bg-slate-950/85 p-3.5">
+                      <div className="flex items-center justify-between gap-3 mb-2.5">
+                        <span className="text-xs sm:text-sm font-semibold text-white">{skill.name}</span>
+                        <Badge className="bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 text-[9px] uppercase tracking-[0.2em] px-2 py-0.5">
                           {skill.level}
                         </Badge>
                       </div>
-                      <div className="h-2 rounded-full bg-white/10 overflow-hidden">
-                        <div className="h-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-400" style={{ width: `${skill.percent}%` }} />
+                      <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
+                        <div className="h-1.5 rounded-full bg-gradient-to-r from-cyan-400 to-blue-400" style={{ width: `${skill.percent}%` }} />
                       </div>
-                      <p className="mt-3 text-xs text-gray-400 uppercase tracking-[0.18em]">{skill.percent}% proficiency</p>
+                      <p className="mt-2 text-[10px] text-gray-400 uppercase tracking-[0.16em]">{skill.percent}% proficiency</p>
                     </div>
                   ))}
                 </div>
               </div>
+            </div>
 
-              <div className="rounded-[2rem] border border-white/10 bg-slate-950/80 p-8">
+            {/* Right Column: Tools & Education */}
+            <div className="space-y-8 flex flex-col justify-between">
+              {/* Tools Card */}
+              <div className="rounded-2xl border border-white/10 bg-slate-950/80 p-6 md:p-8 backdrop-blur-xl shadow-xl">
                 <div className="flex items-center justify-between gap-4 mb-6">
                   <div>
                     <h3 className="text-xl font-semibold text-purple-300">{t("about.toolsTitle")}</h3>
@@ -416,9 +622,9 @@ export default function Home() {
                     Focused stack
                   </div>
                 </div>
-                <div className="grid gap-4 grid-cols-2 md:grid-cols-3">
+                <div className="grid gap-4 grid-cols-2 sm:grid-cols-3">
                   {toolsByCategory.map((cat) => (
-                    <div key={cat.category} className="rounded-xl border border-white/6 bg-black/40 p-3">
+                    <div key={cat.category} className="rounded-xl border border-white/10 bg-black/40 p-3">
                       <div className="text-sm font-semibold text-purple-300 mb-2">{cat.category}</div>
                       <div className="flex flex-wrap gap-2">
                         {cat.items.map((it) => (
@@ -432,38 +638,45 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-            </div>
-          </div>
 
-          <div className="mt-12">
-            <h3 className="text-xl font-semibold mb-4 text-cyan-400">{t("about.education")}</h3>
-            <div className="space-y-4" itemProp="alumniOf" itemScope itemType="https://schema.org/EducationalOrganization">
-              <div className="bg-gray-900 p-4 rounded-lg border border-cyan-500/20">
-                <div className="flex flex-col">
-                  <h4 className="text-lg font-medium text-white" itemProp="programName">{t("about.education.cs")}</h4>
-                  <p className="text-purple-400" itemProp="name">{t("about.education.university")}</p>
-                  <div className="flex items-center mt-1 text-sm text-gray-400" itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
-                    <MapPin className="w-4 h-4 mr-1" />
-                    <span itemProp="addressLocality">{t("about.education.location")}</span>
-                  </div>
-                  <div className="flex items-center mt-1 text-sm text-gray-400">
-                    <Calendar className="w-4 h-4 mr-1" />
-                    <span>{t("about.education.graduation")}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-gray-900 p-4 rounded-lg border border-cyan-500/20">
-                <div className="flex flex-col">
-                  <h4 className="text-lg font-medium text-white">{t("about.education.highschool")}</h4>
-                  <div className="mt-2 space-y-2">
-                    <div className="flex items-center">
-                      <GraduationCap className="w-4 h-4 mr-2 text-purple-400" />
-                      <span className="text-gray-300">{t("about.education.class12")} <span className="text-purple-400">79.2%</span></span>
+              {/* Education Card */}
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8 backdrop-blur-xl shadow-xl">
+                <h3 className="text-xl font-semibold mb-5 text-cyan-400">{t("about.education")}</h3>
+                <div className="grid gap-4 sm:grid-cols-2" itemProp="alumniOf" itemScope itemType="https://schema.org/EducationalOrganization">
+                  <div className="bg-slate-950/80 p-5 rounded-xl border border-cyan-500/20 flex flex-col justify-between">
+                    <div>
+                      <h4 className="text-base font-semibold text-white" itemProp="programName">{t("about.education.cs")}</h4>
+                      <p className="text-purple-400 text-sm mt-1" itemProp="name">{t("about.education.university")}</p>
                     </div>
-                    <div className="flex items-center">
-                      <GraduationCap className="w-4 h-4 mr-2 text-cyan-400" />
-                      <span className="text-gray-300">{t("about.education.class10")} <span className="text-cyan-400">87.6%</span></span>
+                    <div className="mt-4 space-y-1.5 text-xs text-gray-400">
+                      <div className="flex items-center">
+                        <MapPin className="w-3.5 h-3.5 mr-1.5 text-cyan-400" />
+                        <span itemProp="addressLocality">{t("about.education.location")}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <Calendar className="w-3.5 h-3.5 mr-1.5 text-purple-400" />
+                        <span>{t("about.education.graduation")}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-slate-950/80 p-5 rounded-xl border border-cyan-500/20 flex flex-col justify-between">
+                    <h4 className="text-base font-semibold text-white">{t("about.education.highschool")}</h4>
+                    <div className="mt-4 space-y-2.5 text-sm">
+                      <div className="flex items-center justify-between">
+                        <span className="text-gray-300 flex items-center text-xs">
+                          <GraduationCap className="w-3.5 h-3.5 mr-1.5 text-purple-400" />
+                          {t("about.education.class12")}
+                        </span>
+                        <span className="text-purple-400 font-semibold text-xs">79.2%</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-gray-300 flex items-center text-xs">
+                          <GraduationCap className="w-3.5 h-3.5 mr-1.5 text-cyan-400" />
+                          {t("about.education.class10")}
+                        </span>
+                        <span className="text-cyan-400 font-semibold text-xs">87.6%</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -473,58 +686,82 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Experience Section */}
+      {/* Experience & Recommendations Section */}
       <section
         id="experience"
-        className="relative py-20 bg-black overflow-hidden"
+        className="relative py-24 bg-black overflow-hidden"
         itemScope
         itemType="https://schema.org/WorkExperience"
       >
-        <div className="absolute inset-0 opacity-5">
-          <div className="h-full w-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-900 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 opacity-10 pointer-events-none">
+          <div className="h-full w-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-900/20 via-transparent to-transparent"></div>
         </div>
 
-        <div className="container px-4 mx-auto relative z-10">
+        <div className="container px-4 mx-auto max-w-6xl relative z-10">
           {/* Add SEO breadcrumb */}
           <SEOBreadcrumb />
 
           <SectionReveal>
-            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center" itemProp="headline">
-              {t("experience.title")} <span className="text-purple-400">{t("experience.highlight")}</span>
-            </h2>
+            <div className="text-center mb-16">
+              <span className="inline-block px-3 py-1 bg-purple-500/10 border border-purple-500/20 rounded-full text-purple-400 text-xs font-semibold uppercase tracking-wider mb-3">
+                Career History
+              </span>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white" itemProp="headline">
+                {t("experience.title")} <span className="text-purple-400">{t("experience.highlight")}</span>
+              </h2>
+            </div>
           </SectionReveal>
 
           <SectionReveal delay={0.3}>
             <ExperienceTimeline />
           </SectionReveal>
 
+          {/* Branded Section Separator */}
+          <div className="relative my-24">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-white/10"></div>
+            </div>
+            <div className="relative flex justify-center">
+              <span className="bg-black px-5 py-1 rounded-full border border-white/10 text-xs uppercase tracking-widest text-cyan-400/80 font-mono">
+                Professional Endorsements
+              </span>
+            </div>
+          </div>
+
           <SectionReveal delay={0.4}>
-            <div className="mt-20">
-              <div className="text-center mb-10">
-                <h2 className="text-3xl md:text-4xl font-bold">
+            <div>
+              <div className="text-center mb-12">
+                <span className="inline-block px-3 py-1 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-3">
+                  Recommendations
+                </span>
+                <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white">
                   {t("feedback.title")} <span className="text-cyan-400">{t("feedback.highlight")}</span>
                 </h2>
-                <p className="text-gray-400 max-w-2xl mx-auto mt-4">{t("feedback.description")}</p>
+                <p className="text-gray-400 max-w-2xl mx-auto mt-4 text-sm md:text-base leading-relaxed">{t("feedback.description")}</p>
               </div>
 
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {feedbacks.map((feedback) => (
+              <Slider
+                items={feedbacks}
+                itemsPerView={3}
+                renderItem={(feedback: any) => (
                   <div
                     key={feedback.name}
-                    className="flex h-full flex-col justify-between rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_15px_60px_-30px_rgba(56,189,248,0.55)] backdrop-blur-xl"
+                    className="flex h-full flex-col justify-between rounded-2xl border border-white/10 bg-slate-950/80 p-6 shadow-xl backdrop-blur-xl hover:border-white/20 transition-all duration-300 min-h-[340px]"
                   >
                     <div>
                       <div className="flex items-center gap-3 mb-4">
-                        <MessageSquare className="w-5 h-5 text-cyan-400" />
+                        <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 shrink-0">
+                          <MessageSquare className="w-5 h-5" />
+                        </div>
                         <div>
-                          <p className="text-lg font-semibold text-white">{feedback.name}</p>
-                          <p className="text-sm text-gray-400">
+                          <p className="text-base font-semibold text-white">{feedback.name}</p>
+                          <p className="text-xs text-gray-400 mt-0.5">
                             {feedback.role}
                             {feedback.company ? ` · ${feedback.company}` : ""}
                           </p>
                         </div>
                       </div>
-                      <div className="space-y-4 text-gray-300 text-sm leading-7">
+                      <div className="space-y-4 text-gray-300 text-sm leading-relaxed line-clamp-6">
                         <p>{feedback.quote.split("\n\n")[0]}</p>
                       </div>
                     </div>
@@ -533,14 +770,14 @@ export default function Home() {
                         href="https://www.linkedin.com/in/lakshaytrehan/"
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center justify-center w-full rounded-2xl border border-cyan-500/20 bg-cyan-500/10 px-4 py-3 text-sm font-semibold text-cyan-300 transition hover:bg-cyan-500/20"
+                        className="inline-flex items-center justify-center w-full rounded-xl border border-cyan-500/20 bg-cyan-500/10 px-4 py-2.5 text-xs font-semibold text-cyan-300 transition hover:bg-cyan-500/20"
                       >
                         See more on LinkedIn
                       </a>
                     </div>
                   </div>
-                ))}
-              </div>
+                )}
+              />
             </div>
           </SectionReveal>
         </div>
@@ -549,95 +786,103 @@ export default function Home() {
       {/* Projects Section */}
       <section
         id="projects"
-        className="relative py-20 bg-black overflow-hidden"
+        className="relative py-24 bg-gradient-to-b from-black via-slate-950/70 to-black overflow-hidden"
         itemScope
         itemType="https://schema.org/CollectionPage"
       >
-        <div className="absolute inset-0 opacity-5">
-          <div className="h-full w-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 opacity-10 pointer-events-none">
+          <div className="h-full w-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent"></div>
         </div>
 
-        <div className="container px-4 mx-auto relative z-10">
+        <div className="container px-4 mx-auto max-w-6xl relative z-10">
           {/* Add SEO breadcrumb */}
           <SEOBreadcrumb />
 
           <SectionReveal>
-            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center" itemProp="headline">
-              {t("projects.title")} <span className="text-cyan-400">{t("projects.highlight")}</span>
-            </h2>
+            <div className="text-center mb-16">
+              <span className="inline-block px-3 py-1 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-3">
+                Portfolio
+              </span>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white" itemProp="headline">
+                {t("projects.title")} <span className="text-cyan-400">{t("projects.highlight")}</span>
+              </h2>
+            </div>
           </SectionReveal>
 
           <SectionReveal delay={0.2}>
-            <Tabs defaultValue="all" className="w-full mb-8">
-              <TabsList className="grid w-full md:w-auto grid-cols-3 md:inline-flex bg-gray-900 p-1">
-                <TabsTrigger value="all" className="data-[state=active]:bg-gray-800 data-[state=active]:text-cyan-400">
-                  {t("projects.tabs.all")}
-                </TabsTrigger>
-                <TabsTrigger
-                  value="security"
-                  className="data-[state=active]:bg-gray-800 data-[state=active]:text-cyan-400"
-                >
-                  {t("projects.tabs.security")}
-                </TabsTrigger>
-                <TabsTrigger
-                  value="research"
-                  className="data-[state=active]:bg-gray-800 data-[state=active]:text-cyan-400"
-                >
-                  {t("projects.tabs.research")}
-                </TabsTrigger>
-              </TabsList>
+            <Tabs defaultValue="all" className="w-full">
+              <div className="flex justify-center mb-10">
+                <TabsList className="inline-flex rounded-xl bg-slate-950/80 border border-white/10 p-1">
+                  <TabsTrigger
+                    value="all"
+                    className="rounded-lg px-5 py-2 text-xs sm:text-sm font-medium transition-all data-[state=active]:bg-cyan-500/20 data-[state=active]:text-cyan-300"
+                  >
+                    {t("projects.tabs.all")}
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="security"
+                    className="rounded-lg px-5 py-2 text-xs sm:text-sm font-medium transition-all data-[state=active]:bg-cyan-500/20 data-[state=active]:text-cyan-300"
+                  >
+                    {t("projects.tabs.security")}
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="research"
+                    className="rounded-lg px-5 py-2 text-xs sm:text-sm font-medium transition-all data-[state=active]:bg-cyan-500/20 data-[state=active]:text-cyan-300"
+                  >
+                    {t("projects.tabs.research")}
+                  </TabsTrigger>
+                </TabsList>
+              </div>
 
-              <TabsContent value="all" className="mt-6">
-                <div className="relative">
-                  <Slider
-                    items={projects}
-                    itemsPerView={3}
-                    renderItem={(project: any) => (
-                      <ProjectCard
-                        title={project.title}
-                        description={project.description}
-                        technologies={project.technologies}
-                        githubLink={project.githubLink}
-                        demoLink={project.demoLink}
-                        image={project.image}
-                        embedCode={project.embedCode}
-                        isConfidential={project.isConfidential}
-                      />
-                    )}
-                  />
-                </div>
+              <TabsContent value="all" className="mt-2">
+                <Slider
+                  items={projects}
+                  itemsPerView={3}
+                  renderItem={(project: any) => (
+                    <ProjectCard
+                      title={project.title}
+                      description={project.description}
+                      technologies={project.technologies}
+                      githubLink={project.githubLink}
+                      demoLink={project.demoLink}
+                      image={project.image}
+                      embedCode={project.embedCode}
+                      isConfidential={project.isConfidential}
+                    />
+                  )}
+                />
               </TabsContent>
 
-              <TabsContent value="security" className="mt-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {projects
-                    .filter((project) =>
-                      ["CipherEase", "Keylogger", "EthicalSniff", "PixelCrypt", "Password Strength Meter"].includes(
-                        project.title,
-                      ),
-                    )
-                    .map((project, index) => (
-                      <SectionReveal key={project.title} delay={0.3 + index * 0.1}>
-                        <ProjectCard
-                          title={project.title}
-                          description={project.description}
-                          technologies={project.technologies}
-                          githubLink={project.githubLink}
-                          demoLink={project.demoLink}
-                          image={project.image}
-                          embedCode={project.embedCode}
-                          isConfidential={project.isConfidential}
-                        />
-                      </SectionReveal>
-                    ))}
-                </div>
+              <TabsContent value="security" className="mt-2">
+                <Slider
+                  items={projects.filter((project) =>
+                    ["CipherEase", "Keylogger", "EthicalSniff", "PixelCrypt", "Password Strength Meter"].includes(
+                      project.title,
+                    ),
+                  )}
+                  itemsPerView={3}
+                  renderItem={(project: any) => (
+                    <ProjectCard
+                      title={project.title}
+                      description={project.description}
+                      technologies={project.technologies}
+                      githubLink={project.githubLink}
+                      demoLink={project.demoLink}
+                      image={project.image}
+                      embedCode={project.embedCode}
+                      isConfidential={project.isConfidential}
+                    />
+                  )}
+                />
               </TabsContent>
 
-              <TabsContent value="research" className="mt-6">
-                <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
-                  <FileSearch className="h-16 w-16 text-gray-500 mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-400 mb-2">{t("projects.research.title")}</h3>
-                  <p className="text-gray-500 max-w-md">{t("projects.research.description")}</p>
+              <TabsContent value="research" className="mt-2">
+                <div className="flex flex-col items-center justify-center py-16 px-4 text-center rounded-2xl border border-white/10 bg-slate-950/80 backdrop-blur-xl">
+                  <div className="p-4 rounded-2xl bg-cyan-500/10 text-cyan-400 mb-4">
+                    <FileSearch className="h-10 w-10" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-2">{t("projects.research.title")}</h3>
+                  <p className="text-gray-400 max-w-md text-sm leading-relaxed">{t("projects.research.description")}</p>
                 </div>
               </TabsContent>
             </Tabs>
@@ -648,22 +893,27 @@ export default function Home() {
       {/* Certifications Section */}
       <section
         id="certifications"
-        className="relative py-20 bg-gray-950 overflow-hidden"
+        className="relative py-24 bg-black overflow-hidden"
         itemScope
         itemType="https://schema.org/ItemList"
       >
-        <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 opacity-10 pointer-events-none">
           <HexScanner className="w-full h-full" />
         </div>
 
-        <div className="container px-4 mx-auto relative z-10">
+        <div className="container px-4 mx-auto max-w-6xl relative z-10">
           {/* Add SEO breadcrumb */}
           <SEOBreadcrumb />
 
           <SectionReveal>
-            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center" itemProp="name">
-              {t("certifications.title")} <span className="text-green-400">{t("certifications.highlight")}</span>
-            </h2>
+            <div className="text-center mb-16">
+              <span className="inline-block px-3 py-1 bg-green-500/10 border border-green-500/20 rounded-full text-green-400 text-xs font-semibold uppercase tracking-wider mb-3">
+                Credentials
+              </span>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white" itemProp="name">
+                {t("certifications.title")} <span className="text-green-400">{t("certifications.highlight")}</span>
+              </h2>
+            </div>
           </SectionReveal>
 
           <div className="overflow-hidden">
@@ -788,53 +1038,49 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Contact Section - Enhanced */}
+      {/* Contact Section */}
       <section
         id="contact"
-        className="relative py-20 bg-gray-950 overflow-hidden"
+        className="relative py-24 bg-gradient-to-b from-black via-slate-950/80 to-black overflow-hidden"
         itemScope
         itemType="https://schema.org/ContactPage"
       >
-        <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 opacity-10 pointer-events-none">
           <HexScanner className="w-full h-full" />
         </div>
 
-        {/* Decorative elements */}
-        <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-black to-transparent"></div>
-        <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-black to-transparent"></div>
+        <div className="absolute left-0 top-1/4 w-72 h-72 bg-purple-500/10 rounded-full filter blur-3xl pointer-events-none"></div>
+        <div className="absolute right-0 bottom-1/4 w-72 h-72 bg-cyan-500/10 rounded-full filter blur-3xl pointer-events-none"></div>
 
-        <div className="absolute left-0 top-1/4 w-64 h-64 bg-purple-500/10 rounded-full filter blur-3xl"></div>
-        <div className="absolute right-0 bottom-1/4 w-64 h-64 bg-cyan-500/10 rounded-full filter blur-3xl"></div>
-
-        <div className="container px-4 mx-auto relative z-10">
+        <div className="container px-4 mx-auto max-w-6xl relative z-10">
           {/* Add SEO breadcrumb */}
           <SEOBreadcrumb />
 
           <SectionReveal>
             <div className="text-center mb-16">
-              <span className="inline-block px-3 py-1 bg-purple-500/10 rounded-full text-purple-400 text-sm font-medium mb-3">
+              <span className="inline-block px-3 py-1 bg-purple-500/10 border border-purple-500/20 rounded-full text-purple-400 text-xs font-semibold uppercase tracking-wider mb-3">
                 {t("contact.badge")}
               </span>
-              <h2 className="text-3xl md:text-5xl font-bold mb-4" itemProp="headline">
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-4" itemProp="headline">
                 {t("contact.title")} <span className="text-purple-400">{t("contact.highlight")}</span>
               </h2>
-              <p className="text-gray-400 max-w-2xl mx-auto" itemProp="description">
+              <p className="text-gray-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed" itemProp="description">
                 {t("contact.description")}
               </p>
             </div>
           </SectionReveal>
 
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-stretch">
             {/* Contact Info Cards - 2 columns on lg screens */}
-            <div className="lg:col-span-2 space-y-6">
+            <div className="lg:col-span-2 space-y-6 flex flex-col justify-between">
               <SectionReveal delay={0.2}>
                 <div
-                  className="bg-gray-900/80 backdrop-blur-sm p-6 rounded-xl border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300 hover:shadow-[0_0_15px_rgba(168,85,247,0.15)]"
+                  className="bg-slate-950/80 backdrop-blur-xl p-6 rounded-2xl border border-white/10 hover:border-purple-500/40 transition-all duration-300 shadow-xl hover:shadow-[0_0_15px_rgba(168,85,247,0.15)]"
                   itemScope
                   itemType="https://schema.org/ContactPoint"
                 >
                   <div className="flex items-start">
-                    <div className="bg-purple-500/10 p-3 rounded-lg mr-4">
+                    <div className="bg-purple-500/10 p-3 rounded-xl mr-4">
                       <Mail className="w-6 h-6 text-purple-400" />
                     </div>
                     <div>
@@ -855,12 +1101,12 @@ export default function Home() {
 
               <SectionReveal delay={0.3}>
                 <div
-                  className="bg-gray-900/80 backdrop-blur-sm p-6 rounded-xl border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.15)]"
+                  className="bg-slate-950/80 backdrop-blur-xl p-6 rounded-2xl border border-white/10 hover:border-cyan-500/40 transition-all duration-300 shadow-xl hover:shadow-[0_0_15px_rgba(6,182,212,0.15)]"
                   itemScope
                   itemType="https://schema.org/ContactPoint"
                 >
                   <div className="flex items-start">
-                    <div className="bg-cyan-500/10 p-3 rounded-lg mr-4">
+                    <div className="bg-cyan-500/10 p-3 rounded-xl mr-4">
                       <Linkedin className="w-6 h-6 text-cyan-400" />
                     </div>
                     <div>
@@ -883,12 +1129,12 @@ export default function Home() {
 
               <SectionReveal delay={0.4}>
                 <div
-                  className="bg-gray-900/80 backdrop-blur-sm p-6 rounded-xl border border-green-500/20 hover:border-green-500/40 transition-all duration-300 hover:shadow-[0_0_15px_rgba(34,197,94,0.15)]"
+                  className="bg-slate-950/80 backdrop-blur-xl p-6 rounded-2xl border border-white/10 hover:border-green-500/40 transition-all duration-300 shadow-xl hover:shadow-[0_0_15px_rgba(34,197,94,0.15)]"
                   itemScope
                   itemType="https://schema.org/ContactPoint"
                 >
                   <div className="flex items-start">
-                    <div className="bg-green-500/10 p-3 rounded-lg mr-4">
+                    <div className="bg-green-500/10 p-3 rounded-xl mr-4">
                       <Github className="w-6 h-6 text-green-400" />
                     </div>
                     <div>
@@ -910,7 +1156,7 @@ export default function Home() {
               </SectionReveal>
 
               <SectionReveal delay={0.5}>
-                <div className="bg-gray-900/80 backdrop-blur-sm p-6 rounded-xl border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
+                <div className="bg-slate-950/80 backdrop-blur-xl p-6 rounded-2xl border border-white/10 hover:border-purple-500/40 transition-all duration-300 shadow-xl">
                   <h3 className="text-lg font-semibold text-white mb-3 flex items-center">
                     <Clock className="w-5 h-5 mr-2 text-purple-400" />
                     {t("contact.response.title")}
@@ -921,20 +1167,38 @@ export default function Home() {
             </div>
 
             {/* Contact Form - 3 columns on lg screens */}
-            <div className="lg:col-span-3">
-              <SectionReveal delay={0.6}>
+            <div className="lg:col-span-3 h-full flex flex-col">
+              <SectionReveal delay={0.6} className="h-full flex flex-col">
                 <div
-                  className="bg-gray-900/80 backdrop-blur-sm p-8 rounded-xl border border-cyan-500/20 hover:border-cyan-500/30 transition-all duration-300 hover:shadow-[0_0_25px_rgba(6,182,212,0.1)]"
+                  className="h-full flex flex-col justify-between bg-slate-950/80 backdrop-blur-xl p-6 md:p-8 rounded-2xl border border-white/10 hover:border-cyan-500/30 transition-all duration-300 shadow-xl"
                   itemScope
                   itemType="https://schema.org/ContactPoint"
                 >
-                  <div className="flex items-center mb-6">
-                    <MessageSquare className="w-6 h-6 text-cyan-400 mr-3" />
-                    <h3 className="text-xl font-semibold text-white">{t("contact.form.title")}</h3>
+                  <div>
+                    <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/5">
+                      <div className="flex items-center">
+                        <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 mr-3.5 shrink-0">
+                          <MessageSquare className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-semibold text-white">{t("contact.form.title")}</h3>
+                          <p className="text-xs text-gray-400 mt-0.5">Let's discuss security assessments, governance, or collaboration.</p>
+                        </div>
+                      </div>
+                      <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 text-xs font-mono">
+                        <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                        Encrypted
+                      </span>
+                    </div>
+
+                    <ContactForm />
                   </div>
-                  <ContactForm />
-                  <div className="mt-6 pt-6 border-t border-gray-800 text-center">
-                    <p className="text-gray-500 text-sm">{t("contact.form.privacy")}</p>
+
+                  <div className="mt-6 pt-5 border-t border-white/5 text-center">
+                    <p className="text-gray-400 text-xs flex items-center justify-center gap-2">
+                      <Lock className="w-3.5 h-3.5 text-cyan-400" />
+                      <span>{t("contact.form.privacy")}</span>
+                    </p>
                   </div>
                 </div>
               </SectionReveal>

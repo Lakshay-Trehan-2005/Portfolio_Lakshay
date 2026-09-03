@@ -39,7 +39,7 @@ export default function ProjectCard({
   const { t } = useLanguage()
 
   return (
-    <Card className="bg-gray-900 border-gray-800 overflow-hidden group hover:shadow-[0_0_15px_rgba(0,255,255,0.2)] transition-all duration-300">
+    <Card className="h-full flex flex-col justify-between rounded-2xl border border-white/10 bg-slate-950/80 backdrop-blur-xl overflow-hidden group hover:border-cyan-500/40 hover:shadow-[0_0_20px_rgba(6,182,212,0.15)] transition-all duration-300 shadow-xl">
       <div className="relative overflow-hidden h-48">
         {embedCode ? (
           <div className="w-full h-full" dangerouslySetInnerHTML={{ __html: embedCode }} />

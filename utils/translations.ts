@@ -11,17 +11,27 @@ export const translations = {
     "nav.resume": "Resume",
 
     // Hero Section
-    "hero.title": "Cybersecurity Professional",
+    "hero.title": "IT Security Consultant & Analyst",
     "hero.description":
-      "Experienced cybersecurity analyst specialising in threat analysis, security automation, ISO 27001, GDPR, and AI-driven security solutions.",
-    "hero.button.projects": "View Projects",
-    "hero.button.contact": "Contact Me",
+      "Specializing in ISO 27001 & NIS2 governance, threat intelligence, and security automation. Bridging strategic enterprise compliance with technical defensive engineering.",
+    "hero.button.projects": "Explore Work",
+    "hero.button.contact": "Get in Touch",
 
     // About Section
     "about.title": "About",
     "about.me": "Me",
     "about.description":
       "Passionate cybersecurity analyst with expertise in identifying and mitigating digital threats. I specialise in security assessments, vulnerability management, automation, and implementing robust security solutions to protect organisations from evolving cyber risks.",
+    "about.extendedBio":
+      "Operating at the intersection of threat intelligence, IT security governance, and software engineering, I bridge compliance frameworks (ISO 27001, NIS2, NIST) with day-to-day operations. My focus is architecting resilient defensive postures, automating analytical workflows to eliminate manual toil, and ensuring modern digital systems remain protected against sophisticated adversary tactics.",
+    "about.pillars.governance.title": "Governance & Compliance",
+    "about.pillars.governance.desc": "ISO 27001, NIS2 & NIST compliance, audit readiness, and strategic risk management.",
+    "about.pillars.threat.title": "Threat Defense & Audits",
+    "about.pillars.threat.desc": "Proactive vulnerability assessment, attack surface reduction, and threat hunting.",
+    "about.pillars.automation.title": "Security Automation",
+    "about.pillars.automation.desc": "Building custom automation workflows (n8n, Python) to minimize operational response times.",
+    "about.pillars.ai.title": "Secured AI & Vibe Coding",
+    "about.pillars.ai.desc": "Implementing security guardrails, prompt defense, and code verification for AI workflows.",
     "about.skills": "Core Skills",
     "about.topSkillsTitle": "Top Skills",
     "about.topSkillsDescription": "Focused cybersecurity capabilities with communication, automation, compliance, and AI expertise.",
@@ -102,10 +112,36 @@ export const translations = {
     "experience.intern2.skills.6": "Internal Audits",
     "experience.intern2.skills.7": "SOC 2",
     "experience.intern2.skills.8": "Security Compliance",
+    "experience.inomic.title": "IT Security Consultant",
+    "experience.inomic.company": "INOMIC Solutions",
+    "experience.inomic.location": "Walldorf, Germany",
+    "experience.inomic.period": "Aug 26 - Present",
+    "experience.inomic.description":
+      "As an IT Security Consultant at INOMIC Solutions, I spearhead cybersecurity governance, threat intelligence, and intelligent automation—bridging cutting-edge AI security with enterprise-grade protection.",
+    "experience.inomic.achievements.1":
+      "Architected and enforced compliance programs aligned with ISO 27001, NIS2, and NIST cybersecurity frameworks.",
+    "experience.inomic.achievements.2":
+      "Engineered automated security workflows for recurring operational tasks, drastically reducing execution time and human error.",
+    "experience.inomic.achievements.3":
+      "Championed 'Secured Vibe Coding' practices, instituting strict AI prompt guardrails and continuous code validation.",
+    "experience.inomic.achievements.4":
+      "Conducted proactive threat hunting operations and continuous vulnerability assessments to preemptively mitigate attack vectors.",
+    "experience.inomic.achievements.5":
+      "Enhanced and hardened internal security tools, developer pipelines, and digital products against modern threat landscapes.",
+    "experience.inomic.achievements.6":
+      "Delivered actionable risk assessments and strategic advisory to accelerate secure product development.",
+    "experience.inomic.skills.1": "ISO 27001 & NIS2",
+    "experience.inomic.skills.2": "NIST Framework",
+    "experience.inomic.skills.3": "Secured Vibe Coding",
+    "experience.inomic.skills.4": "Threat Hunting",
+    "experience.inomic.skills.5": "Vulnerability Assessment",
+    "experience.inomic.skills.6": "Security Automation",
+    "experience.inomic.skills.7": "Tool & Product Hardening",
+    "experience.inomic.skills.8": "Risk Mitigation",
     "experience.l3montree.title": "Technical Cybersecurity Communication Manager",
     "experience.l3montree.company": "L3montree Cybersecurity GmbH",
     "experience.l3montree.location": "On Site",
-    "experience.l3montree.period": "Feb 26 - Present",
+    "experience.l3montree.period": "Feb 26 - Jul 26",
     "experience.l3montree.description": "At L3montree Cybersecurity GmbH, I led technical cybersecurity communication by shaping messaging, creating content, strengthening awareness, and connecting security topics with business and audience needs.",
     "experience.l3montree.achievements.1": "Led technical cybersecurity communication strategy and crafted clear messaging for complex security topics.",
     "experience.l3montree.achievements.2": "Created and managed content across newsletters, websites, campaigns, and events to support brand visibility and audience engagement.",
@@ -268,17 +304,27 @@ export const translations = {
     "nav.resume": "Lebenslauf",
 
     // Hero Section
-    "hero.title": "Cybersicherheitsexperte",
+    "hero.title": "IT Security Consultant & Analyst",
     "hero.description":
-      "Erfahrener Cybersicherheitsanalyst, spezialisiert auf Penetrationstests, Bedrohungsanalyse und die Entwicklung robuster Sicherheitslösungen.",
+      "Spezialisiert auf ISO 27001 & NIS2 Governance, Bedrohungsanalyse und Sicherheitsautomatisierung. Ich verbinde strategische Unternehmens-Compliance mit technischer Abwehrresilienz.",
     "hero.button.projects": "Projekte ansehen",
-    "hero.button.contact": "Kontaktieren Sie mich",
+    "hero.button.contact": "Kontakt aufnehmen",
 
     // About Section
     "about.title": "Über",
     "about.me": "mich",
     "about.description":
-      "Leidenschaftlicher Cybersicherheitsanalyst mit Expertise in der Identifizierung und Minderung digitaler Bedrohungen. Ich bin spezialisiert auf Penetrationstests, Schwachstellenbewertung und die Implementierung robuster Sicherheitslösungen zum Schutz von Organisationen vor sich entwickelnden Cyberbedrohungen.",
+      "Leidenschaftlicher Cybersicherheitsanalyst mit Expertise in der Identifizierung und Minderung digitaler Bedrohungen. Ich bin spezialisiert auf Sicherheitsbewertungen, Schwachstellenmanagement, Automatisierung und die Implementierung robuster Sicherheitslösungen zum Schutz von Organisationen vor sich entwickelnden Cyberrisiken.",
+    "about.extendedBio":
+      "An der Schnittstelle zwischen Bedrohungsanalyse, IT-Sicherheits-Governance und Software-Engineering verbinde ich Compliance-Frameworks (ISO 27001, NIS2, NIST) mit dem täglichen Betrieb. Mein Fokus liegt auf der Entwicklung robuster Abwehrhaltungen, der Automatisierung von Sicherheitsabläufen zur Vermeidung manueller Routine und dem Schutz moderner Systeme vor neuartigen Angreifertaktiken.",
+    "about.pillars.governance.title": "Governance & Compliance",
+    "about.pillars.governance.desc": "ISO 27001, NIS2 & NIST Compliance, Audit-Vorbereitung und strategisches Risikomanagement.",
+    "about.pillars.threat.title": "Bedrohungsabwehr & Audits",
+    "about.pillars.threat.desc": "Proaktive Schwachstellenbewertung, Angriffsflächenreduzierung und Threat Hunting.",
+    "about.pillars.automation.title": "Sicherheitsautomatisierung",
+    "about.pillars.automation.desc": "Entwicklung maßgeschneiderter Automatisierungen (n8n, Python) zur Minimierung von Reaktionszeiten.",
+    "about.pillars.ai.title": "Sichere KI & Vibe Coding",
+    "about.pillars.ai.desc": "Implementierung von Sicherheitsleitplanken, Prompt-Schutz und Code-Verifikation für KI-Workflows.",
     "about.skills": "Kernkompetenzen",
     "about.topSkillsTitle": "Top-Fähigkeiten",
     "about.topSkillsDescription": "Fokussierte Cybersicherheitskompetenzen mit Kommunikations-, Automatisierungs-, Compliance- und KI-Expertise.",
@@ -359,10 +405,36 @@ export const translations = {
     "experience.intern2.skills.6": "Interne Audits",
     "experience.intern2.skills.7": "SOC 2",
     "experience.intern2.skills.8": "Sicherheitskonformität",
+    "experience.inomic.title": "IT Security Consultant",
+    "experience.inomic.company": "INOMIC Solutions",
+    "experience.inomic.location": "Walldorf, Deutschland",
+    "experience.inomic.period": "Aug 26 - Heute",
+    "experience.inomic.description":
+      "Als IT Security Consultant bei INOMIC Solutions leite ich Sicherheits-Governance, Bedrohungsanalysen und intelligente Automatisierung – mit dem Fokus auf hochmoderne KI-Sicherheit und unternehmensweiten Schutz.",
+    "experience.inomic.achievements.1":
+      "Entwicklung und Umsetzung von Compliance-Programmen nach ISO 27001 sowie NIS2- und NIST-Cybersicherheits-Frameworks.",
+    "experience.inomic.achievements.2":
+      "Aufbau automatisierter Sicherheits-Workflows für wiederkehrende operative Aufgaben zur massiven Reduzierung des Zeit- und Arbeitsaufwands.",
+    "experience.inomic.achievements.3":
+      "Etablierung von 'Secured Vibe Coding'-Praktiken mit robusten KI-Prompt-Leitplanken und kontinuierlicher Code-Validierung.",
+    "experience.inomic.achievements.4":
+      "Durchführung proaktiver Threat-Hunting-Einsätze und kontinuierlicher Schwachstellenanalysen (Vulnerability Assessments).",
+    "experience.inomic.achievements.5":
+      "Weiterentwicklung und Härtung interner Sicherheitstools, Entwicklungs-Pipelines und digitaler Produkte gegen neuartige Bedrohungen.",
+    "experience.inomic.achievements.6":
+      "Erstellung praxisorientierter Risikobewertungen und strategische Beratung zur Beschleunigung sicherer Softwareentwicklung.",
+    "experience.inomic.skills.1": "ISO 27001 & NIS2",
+    "experience.inomic.skills.2": "NIST-Framework",
+    "experience.inomic.skills.3": "Secured Vibe Coding",
+    "experience.inomic.skills.4": "Threat Hunting",
+    "experience.inomic.skills.5": "Vulnerability Assessment",
+    "experience.inomic.skills.6": "Sicherheitsautomatisierung",
+    "experience.inomic.skills.7": "Tool- & Produkthärtung",
+    "experience.inomic.skills.8": "Risikominimierung",
     "experience.l3montree.title": "Technischer Kommunikationsmanager für Cybersicherheit",
     "experience.l3montree.company": "L3montree Cybersecurity GmbH",
     "experience.l3montree.location": "Vor Ort",
-    "experience.l3montree.period": "Feb 26 - Heute",
+    "experience.l3montree.period": "Feb 26 - Jul 26",
     "experience.l3montree.description": "Bei der L3montree Cybersecurity GmbH habe ich die technische Kommunikation im Bereich Cybersicherheit gestaltet, indem ich Botschaften entwickelte, Inhalte erstellte, das Bewusstsein stärkte und Sicherheitsfragen verständlich für Unternehmen und Zielgruppen machte.",
     "experience.l3montree.achievements.1": "Gestaltung der Kommunikationsstrategie für technische Cybersicherheitsinhalte und klare Botschaften für komplexe Themen.",
     "experience.l3montree.achievements.2": "Erstellung und Pflege von Inhalten für Newsletter, Websites, Kampagnen und Events zur Stärkung der Sichtbarkeit und Reichweite.",

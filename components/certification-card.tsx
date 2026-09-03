@@ -26,7 +26,7 @@ export default function CertificationCard({
 
   return (
     <Card
-      className="bg-gray-900 border-gray-800 overflow-hidden transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,255,255,0.3)]"
+      className="h-full flex flex-col justify-between rounded-2xl border border-white/10 bg-slate-950/80 backdrop-blur-xl overflow-hidden transition-all duration-300 hover:border-green-500/40 hover:shadow-[0_0_20px_rgba(34,197,94,0.15)] shadow-xl"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
